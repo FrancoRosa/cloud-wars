@@ -1,15 +1,15 @@
+const webpack = require('webpack');
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = {
+
   entry: './src/js/index.js',
+
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  plugins: [
-    new Dotenv(),
-  ],
+
   module: {
     rules: [
       {
@@ -32,6 +32,10 @@ module.exports = {
         ],
       },
       {
+        test: /\.mp3$/,
+        loader: 'file-loader',
+      },
+      {
         test: /\.(csv|tsv)$/,
         use: [
           'csv-loader',
@@ -43,6 +47,17 @@ module.exports = {
           'xml-loader',
         ],
       },
+      {
+        test: [/\.vert$/, /\.frag$/],
+        use: 'raw-loader',
+      },
     ],
   },
+
+  plugins: [
+    new webpack.DefinePlugin({
+      CANVAS_RENDERER: JSON.stringify(true),
+      WEBGL_RENDERER: JSON.stringify(true),
+    }),
+  ],
 };
