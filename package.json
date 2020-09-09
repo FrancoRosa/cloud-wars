@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/FrancoRosa/alien-wars#readme",
   "devDependencies": {
+    "@babel/preset-env": "^7.11.5",
     "css-loader": "^4.2.1",
+    "dotenv-webpack": "^2.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
