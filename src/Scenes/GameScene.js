@@ -32,6 +32,12 @@ export default class GameScene extends Phaser.Scene {
     this.load.audio('sndExplode0', 'assets/game/sndExplode0.wav');
     this.load.audio('sndExplode1', 'assets/game/sndExplode1.wav');
     this.load.audio('sndLaser', 'assets/game/sndLaser.wav');
+
+    this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   }
 
   create() {
@@ -78,6 +84,28 @@ export default class GameScene extends Phaser.Scene {
       this.game.config.width * 0.5,
       this.game.config.height * 0.5,
       'sprPlayer',
-    ); 
+    );
+  }
+
+  update() {
+    if (this.keyW.isDown) {
+      this.player.moveUp();
+    } else if (this.keyS.isDown) {
+      this.player.moveDown();
+    }
+
+    if (this.keyA.isDown) {
+      this.player.moveLeft();
+    } else if (this.keyD.isDown) {
+      this.player.moveRight();
+    }
+
+    if (this.keySpace.isDown) {
+      this.player.setData("isShooting", true);
+    } else {
+      this.player.setData("timerShootTick", this.player.getData("timerShootDelay") - 1);
+      this.player.setData("isShooting", false);
+    }
+
   }
 }

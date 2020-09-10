@@ -7,4 +7,10 @@ export default {
   height: 600,
   midx: 400,
   midy: 300,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { x: 0, y: 0 },
+    },
+  },
 };
