@@ -1,12 +1,14 @@
 import Phaser from 'phaser';
 import Player from '../Entities/Player';
+import EnemyShipSmall from '../Entities/EnemyShipSmall';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
   }
-
+  
   preload() {
+    
     this.load.image('logo', 'assets/logo.png');
     this.load.image('sprBg0', 'assets/game/sprBg0.png');
     this.load.image('sprBg1', 'assets/game/sprBg1.png');
@@ -41,8 +43,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(400, 300, 'logo');
-
     this.anims.create({
       key: 'sprEnemy0',
       frames: this.anims.generateFrameNumbers('sprEnemy0'),
@@ -87,11 +87,41 @@ export default class GameScene extends Phaser.Scene {
     );
 
     this.playerLasers = this.add.group();
+    this.enemyLasers = this.add.group();
+    this.enemies = this.add.group();
 
+
+    this.time.addEvent({
+      delay: 1000,
+      callback: () => {
+        const enemy = new EnemyShipSmall(
+          this,
+          Phaser.Math.Between(0, this.game.config.width),
+          0,
+        );
+        this.enemies.add(enemy);
+        window.enemies = this.enemies.getChildren().length;
+        window.lasers = this.enemyLasers.getChildren().length;
+      },
+      callbackScope: this,
+      loop: true,
+    });
   }
 
   update() {
     this.player.update();
+    this.enemies.getChildren().forEach(e => {
+      e.update();
+      if (e && e.y > this.game.config.height) {
+        e.onDestroy();
+        e.destroy();
+      }
+    });
+
+    this.enemyLasers.getChildren().forEach(e => {
+      if (e && e.y > this.game.config.height) e.destroy();
+    });
+
     if (this.keyW.isDown) this.player.moveUp();
     if (this.keyS.isDown) this.player.moveDown();
     if (this.keyA.isDown) this.player.moveLeft();
@@ -103,9 +133,5 @@ export default class GameScene extends Phaser.Scene {
       this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
       this.player.setData('isShooting', false);
     }
-  }
-
-  render() {
-    this.debug.cameraInfo(this.camera, 32, 32);
   }
 }
