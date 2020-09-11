@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Player from '../Entities/Player';
 import EnemyShipSmall from '../Entities/EnemyShipSmall';
+import BonusLife from '../Entities/BonusLife';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -31,6 +32,10 @@ export default class GameScene extends Phaser.Scene {
       frameWidth: 16,
       frameHeight: 16,
     });
+    this.load.spritesheet('sprBonusLife', 'assets/game/sprBonusLife.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
     this.load.audio('sndExplode0', 'assets/game/sndExplode0.wav');
     this.load.audio('sndExplode1', 'assets/game/sndExplode1.wav');
     this.load.audio('sndLaser', 'assets/game/sndLaser.wav');
@@ -43,6 +48,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
+    
+
     this.anims.create({
       key: 'sprEnemy0',
       frames: this.anims.generateFrameNumbers('sprEnemy0'),
@@ -71,6 +78,13 @@ export default class GameScene extends Phaser.Scene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: 'sprBonusLife',
+      frames: this.anims.generateFrameNumbers('sprBonusLife'),
+      frameRate: 10,
+      repeat: -1,
+    });
+
     this.sfx = {
       explosions: [
         this.sound.add('sndExplode0'),
@@ -89,10 +103,17 @@ export default class GameScene extends Phaser.Scene {
     this.playerLasers = this.add.group();
     this.enemyLasers = this.add.group();
     this.enemies = this.add.group();
+    this.bonusLifes = this.add.group();
 
+    this.player.setData('enemies', 0);
+
+    this.player.setData('score', 0);
+    const livesText = this.add.text(16, 16, 'level: 0', { fontSize: '16px', fill: '#FFF' });
+    const scoreText = this.add.text(16, 32, 'score: 0', { fontSize: '16px', fill: '#FFF' });
+    const levelText = this.add.text(16, 48, 'lives: 0', { fontSize: '16px', fill: '#FFF' });
 
     this.time.addEvent({
-      delay: 1000,
+      delay: 500,
       callback: () => {
         const enemy = new EnemyShipSmall(
           this,
@@ -102,24 +123,50 @@ export default class GameScene extends Phaser.Scene {
         this.enemies.add(enemy);
         window.enemies = this.enemies.getChildren().length;
         window.lasers = this.enemyLasers.getChildren().length;
+        this.player.setData('enemies', this.player.getData('enemies') + 1);
+        this.player.setData('score', this.player.getData('score') + 1);
+        scoreText.setText(`score: ${this.player.getData('score')}`);
+        if (this.player.getData('enemies') > 10) {
+          this.player.setData('enemies', 0);
+          const bonuslife = new BonusLife(
+            this,
+            Phaser.Math.Between(0, this.game.config.width),
+            0,
+          );
+          bonuslife.setScale(1.5);
+          this.bonusLifes.add(bonuslife);
+        }
       },
       callbackScope: this,
       loop: true,
     });
+
+    
   }
 
   update() {
     this.player.update();
     this.enemies.getChildren().forEach(e => {
       e.update();
-      if (e && e.y > this.game.config.height) {
+      if (e && e.y > this.game.config.height - 10) {
         e.onDestroy();
         e.destroy();
       }
     });
 
     this.enemyLasers.getChildren().forEach(e => {
-      if (e && e.y > this.game.config.height) e.destroy();
+      if (e && e.y > this.game.config.height - 10) e.destroy();
+    });
+
+    this.playerLasers.getChildren().forEach(e => {
+      if (e && e.y < 10) e.destroy();
+    });
+
+    this.bonusLifes.getChildren().forEach(e => {
+      e.update();
+      if (e && e.y > this.game.config.height - 10) {
+        e.destroy();
+      }
     });
 
     if (this.keyW.isDown) this.player.moveUp();
