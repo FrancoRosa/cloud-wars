@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import config from '../Config/config';
 import Button from '../Objects/Button';
 
 export default class OptionsScene extends Phaser.Scene {
@@ -6,15 +7,18 @@ export default class OptionsScene extends Phaser.Scene {
     super('Options');
   }
 
+  preload() {
+    this.add.image(250, 100, 'logo');
+  }
+
   create() {
     this.model = this.sys.game.globals.model;
 
-    this.text = this.add.text(300, 100, 'Options', { fontSize: 40 });
-    this.musicButton = this.add.image(200, 200, 'checkedBox');
-    this.musicText = this.add.text(250, 190, 'Music Enabled', { fontSize: 24 });
+    this.musicButton = this.add.image(130, 250, 'checkedBox');
+    this.musicText = this.add.text(160, 240, 'Music Enabled', { fontSize: 24 });
 
-    this.soundButton = this.add.image(200, 300, 'checkedBox');
-    this.soundText = this.add.text(250, 290, 'Sound Enabled', { fontSize: 24 });
+    this.soundButton = this.add.image(130, 300, 'checkedBox');
+    this.soundText = this.add.text(160, 290, 'Sound Enabled', { fontSize: 24 });
 
     this.musicButton.setInteractive();
     this.soundButton.setInteractive();
@@ -29,7 +33,7 @@ export default class OptionsScene extends Phaser.Scene {
       this.updateAudio();
     });
 
-    this.menuButton = new Button(this, 400, 500, 'blueButton1', 'blueButton2', 'Menu', 'Title');
+    this.menuButton = new Button(this, config.midx, config.midy + 70, 'blueButton1', 'blueButton2', 'Menu', 'Title');
 
     this.updateAudio();
   }

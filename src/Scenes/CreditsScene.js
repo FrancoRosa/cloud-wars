@@ -8,20 +8,16 @@ export default class CreditsScene extends Phaser.Scene {
 
   create() {
     this.creditsText = this.add.text(0, 0, 'Credits', { fontSize: '32px', fill: '#fff' });
-    this.madeByText = this.add.text(0, 0, 'Created By: Placeholder', { fontSize: '26px', fill: '#fff' });
+    this.madeByText = this.add.text(0, 0, 'Created by: FrancoRosa', { fontSize: '26px', fill: '#fff' });
+    this.inspiredByText = this.add.text(0, 0, 'Inspired by: Jared York', { fontSize: '26px', fill: '#fff' });
     this.zone = this.add.zone(config.width / 2, config.height / 2, config.width, config.height);
 
-    Phaser.Display.Align.In.Center(
-      this.creditsText,
-      this.zone,
-    );
-
-    Phaser.Display.Align.In.Center(
-      this.madeByText,
-      this.zone,
-    );
+    Phaser.Display.Align.In.Center(this.creditsText, this.zone);
+    Phaser.Display.Align.In.Center(this.madeByText, this.zone);
+    Phaser.Display.Align.In.Center(this.inspiredByText, this.zone);
 
     this.madeByText.setY(1000);
+    this.inspiredByText.setY(2000);
 
     this.creditsTween = this.tweens.add({
       targets: this.creditsText,
@@ -33,7 +29,7 @@ export default class CreditsScene extends Phaser.Scene {
     });
 
     this.madeByTween = this.tweens.add({
-      targets: this.madeByText,
+      targets: [this.madeByText, this.inspiredByText],
       y: -300,
       ease: 'Power1',
       duration: 8000,

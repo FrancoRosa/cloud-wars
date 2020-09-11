@@ -1,10 +1,4 @@
 import Phaser from 'phaser';
-import blueButton1 from '../assets/ui/blue_button02.png';
-import blueButton2 from '../assets/ui/blue_button03.png';
-import phaserLogo from '../assets/logo.png';
-import box from '../assets/ui/grey_box.png';
-import checkedBox from '../assets/ui/blue_boxCheckmark.png';
-import bgMusic from '../assets/TownTheme.mp3';
 
 export default class PreloaderScene extends Phaser.Scene {
   constructor() {
@@ -17,13 +11,13 @@ export default class PreloaderScene extends Phaser.Scene {
 
   preload() {
     // add logo image
-    this.add.image(400, 200, 'logo');
+    this.add.image(250, 200, 'logo');
 
     // display progress bar
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
-    progressBox.fillRect(240, 270, 320, 50);
+    progressBox.fillRect(100, 270, 310, 50);
 
     const { width } = this.cameras.main;
     const { height } = this.cameras.main;
@@ -65,7 +59,7 @@ export default class PreloaderScene extends Phaser.Scene {
       percentText.setText(`${parseInt(value * 100, 10)}%`);
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(250, 280, 300 * value, 30);
+      progressBar.fillRect(110, 280, 300 * value, 30);
     });
 
     // update file progress text
@@ -86,12 +80,44 @@ export default class PreloaderScene extends Phaser.Scene {
     this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
 
     // load assets needed in our game
-    this.load.image('blueButton1', blueButton1);
-    this.load.image('blueButton2', blueButton2);
-    this.load.image('phaserLogo', phaserLogo);
-    this.load.image('box', box);
-    this.load.image('checkedBox', checkedBox);
-    this.load.audio('bgMusic', [bgMusic]);
+    this.load.image('blueButton1', '../assets/ui/blue_button02.png');
+    this.load.image('blueButton2', '../assets/ui/blue_button03.png');
+    this.load.image('phaserLogo', '../assets/logo.png');
+    this.load.image('box', '../assets/ui/grey_box.png');
+    this.load.image('checkedBox', '../assets/ui/blue_boxCheckmark.png');
+    this.load.audio('bgMusic', ['../assets/shooter.mp3']);
+
+    this.load.image('logo', 'assets/logo.png');
+    this.load.image('sprBg0', 'assets/game/sprBg0.png');
+    this.load.image('sprBg1', 'assets/game/sprBg1.png');
+    this.load.spritesheet('sprExplosion', 'assets/game/sprExplosion.png', {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet('sprEnemy0', 'assets/game/sprEnemy0.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
+    this.load.image('sprEnemy1', 'assets/game/sprEnemy1.png');
+    this.load.spritesheet('sprEnemy2', 'assets/game/sprEnemy2.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
+    this.load.image('sprLaserEnemy0', 'assets/game/sprLaserEnemy0.png');
+    this.load.image('sprLaserPlayer', 'assets/game/sprLaserPlayer.png');
+    this.load.spritesheet('sprPlayer', 'assets/game/sprPlayer.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
+    this.load.spritesheet('sprBonusLife', 'assets/game/sprBonusLife.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
+    this.load.audio('sndExplode0', 'assets/game/sndExplode0.wav');
+    this.load.audio('sndExplode1', 'assets/game/sndExplode1.wav');
+    this.load.audio('sndLaser', 'assets/game/sndLaser.wav');
+    this.load.audio('sndLevel', 'assets/game/sndLevel.wav');
+    this.load.audio('sndLife', 'assets/game/sndLife.wav');
   }
 
   ready() {
