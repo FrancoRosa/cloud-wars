@@ -17,7 +17,8 @@ class Player extends Entity {
       if (this.getData('timerShootTick') < this.getData('timerShootDelay')) {
         this.setData('timerShootTick', this.getData('timerShootTick') + 1); // every game update, increase timerShootTick by one until we reach the value of timerShootDelay
       } else { // when the "manual timer" is triggered:
-        const laser = new PlayerLaser(this.scene, this.x, this.y, this.body.velocity.y);
+        const laser = new PlayerLaser(this.scene, this.x, this.y);
+        laser.setScale(1, 4);
         this.scene.playerLasers.add(laser);
 
         this.scene.sfx.laser.play(); // play the laser sound effect
@@ -44,6 +45,14 @@ class Player extends Entity {
 
   moveRight() {
     this.body.velocity.x = this.getData('speed');
+  }
+
+  power() {
+    for (let index = -1; index < 1; index += 0.05) {
+      const laser = new PlayerLaser(this.scene, this.x, this.y, index);
+      laser.setScale(1, 2);
+      this.scene.playerLasers.add(laser);
+    }
   }
 }
 

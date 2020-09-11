@@ -5,7 +5,7 @@ class BonusLife extends Entity {
   constructor(scene, x, y) {
     super(scene, x, y);
     this.play('sprBonusLife');
-    this.body.velocity.y = Phaser.Math.Between(10, 50);
+    this.body.velocity.y = Phaser.Math.Between(50, 100);
     this.body.velocity.x = Phaser.Math.Between(-200, 200);
   }
 

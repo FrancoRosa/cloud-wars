@@ -1,9 +1,11 @@
 import Entity from './Entity';
 
 export default class PlayerLaser extends Entity {
-  constructor(scene, x, y, speed) {
+  constructor(scene, x, y, angle) {
     super(scene, x, y, 'sprLaserPlayer');
-    if (speed < 0) this.body.velocity.y = -250 + speed;
-    else this.body.velocity.y = -250;
+    this.body.velocity.y = -300;
+    if (angle) {
+      this.body.velocity.x = -300 * angle;
+    }
   }
 }

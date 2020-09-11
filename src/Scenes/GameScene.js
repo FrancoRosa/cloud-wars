@@ -38,6 +38,8 @@ export default class GameScene extends Phaser.Scene {
     this.load.audio('sndExplode0', 'assets/game/sndExplode0.wav');
     this.load.audio('sndExplode1', 'assets/game/sndExplode1.wav');
     this.load.audio('sndLaser', 'assets/game/sndLaser.wav');
+    this.load.audio('sndLevel', 'assets/game/sndLevel.wav');
+    this.load.audio('sndLife', 'assets/game/sndLife.wav');
 
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -88,6 +90,8 @@ export default class GameScene extends Phaser.Scene {
         this.sound.add('sndExplode1'),
       ],
       laser: this.sound.add('sndLaser'),
+      level: this.sound.add('sndLevel'),
+      life: this.sound.add('sndLife'),
     };
 
     this.player = new Player(
@@ -113,7 +117,7 @@ export default class GameScene extends Phaser.Scene {
     this.scoreText = this.add.text(16, 32, 'score: 0', { fontSize: '16px', fill: '#FFF' });
 
     this.time.addEvent({
-      delay: 500,
+      delay: 1000 - (100 * this.getLevel() - 1),
       callback: () => {
         const enemy = new EnemyShipSmall(
           this,
@@ -123,6 +127,7 @@ export default class GameScene extends Phaser.Scene {
         this.enemies.add(enemy);
         window.enemies = this.enemies.getChildren().length;
         window.lasers = this.enemyLasers.getChildren().length;
+        window.playerlasers = this.playerLasers.getChildren().length;
         this.addEnemies(1);
         this.addScore(1);
         if ((this.getEnemies() % 10) === 0) {
@@ -134,7 +139,7 @@ export default class GameScene extends Phaser.Scene {
           bonuslife.setScale(1.5);
           this.bonusLifes.add(bonuslife);
         }
-        if ((this.getEnemies() % 30) === 0) this.levelUp();
+        if ((this.getEnemies() % 20) === 0) this.levelUp();
       },
       callbackScope: this,
       loop: true,
@@ -172,6 +177,13 @@ export default class GameScene extends Phaser.Scene {
         enemy.explode(true);
         if (this.getLifes() < 0) player.explode(true);
       }
+    });
+
+    this.physics.add.overlap(this.playerLasers, this.enemyLasers, (player, enemy) => {
+      player.explode(true);
+      enemy.explode(true);
+      player.destroy();
+      enemy.destroy();
     });
   }
 
@@ -231,6 +243,8 @@ export default class GameScene extends Phaser.Scene {
   addLifes() {
     this.player.setData('lifes', this.getLifes() + 1);
     this.livesText.setText(`lifes: ${this.getLifes()}`);
+    this.sfx.life.play();
+    this.player.power();
   }
 
   removeLifes() {
@@ -246,8 +260,14 @@ export default class GameScene extends Phaser.Scene {
     this.player.setData('enemies', this.getEnemies() + 1);
   }
 
+  getLevel() {
+    return this.player.getData('level');
+  }
+
   levelUp() {
     this.player.setData('level', this.player.getData('level') + 1);
     this.levelText.setText(`level: ${this.player.getData('level')}`);
+    this.sfx.level.play();
+    this.player.power();
   }
 }
