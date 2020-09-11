@@ -7,9 +7,8 @@ export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
   }
-  
+
   preload() {
-    
     this.load.image('logo', 'assets/logo.png');
     this.load.image('sprBg0', 'assets/game/sprBg0.png');
     this.load.image('sprBg1', 'assets/game/sprBg1.png');
@@ -48,8 +47,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    
-
     this.anims.create({
       key: 'sprEnemy0',
       frames: this.anims.generateFrameNumbers('sprEnemy0'),
@@ -108,9 +105,12 @@ export default class GameScene extends Phaser.Scene {
     this.player.setData('enemies', 0);
 
     this.player.setData('score', 0);
-    const livesText = this.add.text(16, 16, 'level: 0', { fontSize: '16px', fill: '#FFF' });
-    const scoreText = this.add.text(16, 32, 'score: 0', { fontSize: '16px', fill: '#FFF' });
-    const levelText = this.add.text(16, 48, 'lives: 0', { fontSize: '16px', fill: '#FFF' });
+    this.player.setData('lifes', 3);
+    this.player.setData('level', 1);
+
+    this.levelText = this.add.text(16, 48, 'level: 1', { fontSize: '16px', fill: '#FFF' });
+    this.livesText = this.add.text(16, 16, 'lifes: 3', { fontSize: '16px', fill: '#FFF' });
+    this.scoreText = this.add.text(16, 32, 'score: 0', { fontSize: '16px', fill: '#FFF' });
 
     this.time.addEvent({
       delay: 500,
@@ -123,11 +123,9 @@ export default class GameScene extends Phaser.Scene {
         this.enemies.add(enemy);
         window.enemies = this.enemies.getChildren().length;
         window.lasers = this.enemyLasers.getChildren().length;
-        this.player.setData('enemies', this.player.getData('enemies') + 1);
-        this.player.setData('score', this.player.getData('score') + 1);
-        scoreText.setText(`score: ${this.player.getData('score')}`);
-        if (this.player.getData('enemies') > 10) {
-          this.player.setData('enemies', 0);
+        this.addEnemies(1);
+        this.addScore(1);
+        if ((this.getEnemies() % 10) === 0) {
           const bonuslife = new BonusLife(
             this,
             Phaser.Math.Between(0, this.game.config.width),
@@ -136,12 +134,45 @@ export default class GameScene extends Phaser.Scene {
           bonuslife.setScale(1.5);
           this.bonusLifes.add(bonuslife);
         }
+        if ((this.getEnemies() % 30) === 0) this.levelUp();
       },
       callbackScope: this,
       loop: true,
     });
 
-    
+    this.physics.add.overlap(this.playerLasers, this.enemies, (player, enemy) => {
+      if (!player.getData('isDead')
+          && !enemy.getData('isDead')) {
+        player.explode(false);
+        enemy.explode(true);
+        this.addScore(10);
+      }
+    });
+
+    this.physics.add.overlap(this.player, this.bonusLifes, (player, bonus) => {
+      this.addLifes();
+      if (!player.getData('isDead')) {
+        bonus.destroy();
+      }
+    });
+
+    this.physics.add.overlap(this.player, this.enemyLasers, (player, enemy) => {
+      this.removeLifes();
+      if (this.getLifes() < 0) {
+        if (!player.getData('isDead') && !enemy.getData('isDead')) {
+          player.explode(false);
+          enemy.explode(true);
+        }
+      }
+    });
+
+    this.physics.add.overlap(this.player, this.enemies, (player, enemy) => {
+      this.removeLifes();
+      if (!player.getData('isDead') && !enemy.getData('isDead')) {
+        enemy.explode(true);
+        if (this.getLifes() < 0) player.explode(true);
+      }
+    });
   }
 
   update() {
@@ -180,5 +211,43 @@ export default class GameScene extends Phaser.Scene {
       this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
       this.player.setData('isShooting', false);
     }
+  }
+
+  getScore() {
+    return this.player.getData('score');
+  }
+
+  addScore(value) {
+    if (!this.player.getData('isDead')) {
+      this.player.setData('score', this.getScore() + value);
+      this.scoreText.setText(`score: ${this.player.getData('score')}`);
+    }
+  }
+
+  getLifes() {
+    return this.player.getData('lifes');
+  }
+
+  addLifes() {
+    this.player.setData('lifes', this.getLifes() + 1);
+    this.livesText.setText(`lifes: ${this.getLifes()}`);
+  }
+
+  removeLifes() {
+    this.player.setData('lifes', this.getLifes() - 1);
+    if (this.getLifes() >= 0) this.livesText.setText(`lifes: ${this.getLifes()}`);
+  }
+
+  getEnemies() {
+    return this.player.getData('enemies');
+  }
+
+  addEnemies() {
+    this.player.setData('enemies', this.getEnemies() + 1);
+  }
+
+  levelUp() {
+    this.player.setData('level', this.player.getData('level') + 1);
+    this.levelText.setText(`level: ${this.player.getData('level')}`);
   }
 }
