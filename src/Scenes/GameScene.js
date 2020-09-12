@@ -77,9 +77,10 @@ export default class GameScene extends Phaser.Scene {
     this.enemies = this.add.group();
     this.bonusLifes = this.add.group();
 
-    this.levelText = this.add.text(16, 48, 'level: 1', { fontSize: '16px', fill: '#FFF' });
-    this.livesText = this.add.text(16, 16, 'lifes: 3', { fontSize: '16px', fill: '#FFF' });
-    this.scoreText = this.add.text(16, 32, 'score: 0', { fontSize: '16px', fill: '#FFF' });
+    this.levelText = this.add.text(16, 8, `player: ${scores.user.user}`, { fontSize: '16px', fill: '#FFF' });
+    this.levelText = this.add.text(16, 26, 'level: 1', { fontSize: '16px', fill: '#FFF' });
+    this.livesText = this.add.text(16, 44, 'lifes: 3', { fontSize: '16px', fill: '#FFF' });
+    this.scoreText = this.add.text(16, 62, 'score: 0', { fontSize: '16px', fill: '#FFF' });
 
     this.time.addEvent({
       delay: 1000 - (100 * this.getLevel() - 1),

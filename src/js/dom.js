@@ -11,9 +11,9 @@ export const show = () => {
 export const listener = () => {
   const input = document.querySelector('input');
   const savedName = localStorage.getItem('name');
-  if (savedName != null) input.value = savedName;
+  input.value = savedName;
   input.onkeyup = () => {
-    score.name = input.value;
+    score.user.user = input.value;
     localStorage.setItem('name', input.value);
   };
 };

@@ -1,4 +1,8 @@
 export default {
-  score: 0,
-  name: null,
+  user: {
+    user: null,
+    score: 0,
+  },
+  topscores: {
+  },
 };
