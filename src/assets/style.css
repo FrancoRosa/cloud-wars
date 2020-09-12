@@ -1,0 +1,39 @@
+body {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frame {
+  display: flex;
+  position: absolute;
+  height: 600px;
+  width: 500px;
+}
+
+.input {
+  display: flex;
+  position: relative;
+  text-align: center;
+  top: 207px;
+  left: 154px;
+  width: 180px;
+  height: 43px;
+  border: 10%;
+}
+
+.input > input {
+  background-color: #1ea7e1;
+  color: white;
+  border-radius: 7px;
+  text-align: center;
+  font-size: 28px;
+  height: 40px;
+  width: 183px;
+  
+}
+
+.hidden {
+  display: none;
+}

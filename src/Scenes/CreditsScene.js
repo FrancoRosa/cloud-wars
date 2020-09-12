@@ -1,12 +1,14 @@
 import Phaser from 'phaser';
 import config from '../Config/config';
+import { hide } from '../js/dom';
 
 export default class CreditsScene extends Phaser.Scene {
   constructor() {
     super('Credits');
   }
-
+  
   create() {
+    hide();
     this.creditsText = this.add.text(0, 0, 'Credits', { fontSize: '32px', fill: '#fff' });
     this.madeByText = this.add.text(0, 0, 'Created by: FrancoRosa', { fontSize: '26px', fill: '#fff' });
     this.inspiredByText = this.add.text(0, 0, 'Inspired by: Jared York', { fontSize: '26px', fill: '#fff' });

@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import Player from '../Entities/Player';
 import EnemyShipSmall from '../Entities/EnemyShipSmall';
 import BonusLife from '../Entities/BonusLife';
+import scores from '../js/topscores';
+import { hide } from '../js/dom';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -9,6 +11,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
+    hide();
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -74,12 +77,6 @@ export default class GameScene extends Phaser.Scene {
     this.enemies = this.add.group();
     this.bonusLifes = this.add.group();
 
-    this.player.setData('enemies', 0);
-
-    this.player.setData('score', 0);
-    this.player.setData('lifes', 3);
-    this.player.setData('level', 1);
-
     this.levelText = this.add.text(16, 48, 'level: 1', { fontSize: '16px', fill: '#FFF' });
     this.livesText = this.add.text(16, 16, 'lifes: 3', { fontSize: '16px', fill: '#FFF' });
     this.scoreText = this.add.text(16, 32, 'score: 0', { fontSize: '16px', fill: '#FFF' });
@@ -116,7 +113,7 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.playerLasers, this.enemies, (player, enemy) => {
       if (!player.getData('isDead')
           && !enemy.getData('isDead')) {
-        player.explode(false);
+        // player.explode(false);
         enemy.explode(true);
         this.addScore(10);
       }
@@ -132,9 +129,9 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.enemyLasers, (player, enemy) => {
       this.removeLifes();
       if (this.getLifes() < 0) {
+        enemy.explode(true);
         if (!player.getData('isDead') && !enemy.getData('isDead')) {
-          player.explode(false);
-          enemy.explode(true);
+          player.explode(true);
         }
       }
     });
@@ -193,6 +190,9 @@ export default class GameScene extends Phaser.Scene {
         this.player.setData('timerShootTick', this.player.getData('timerShootDelay') - 1);
         this.player.setData('isShooting', false);
       }
+    } else {
+      scores.score = this.getScore();
+      this.scene.start('GameOver');
     }
   }
 

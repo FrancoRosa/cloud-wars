@@ -10,6 +10,10 @@ class Player extends Entity {
     this.setData('isShooting', false);
     this.setData('timerShootDelay', 10);
     this.setData('timerShootTick', this.getData('timerShootDelay') - 1);
+    this.setData('enemies', 0);
+    this.setData('score', 0);
+    this.setData('lifes', 3);
+    this.setData('level', 1);
   }
 
   update() {
