@@ -1,5 +1,5 @@
 # cloud-wars
->Shooter ame build with the power of Phaser3 and JS
+>Shooter game build with the power of Phaser3 and JS
 
 Your score must be on the top 5 if you deserve to be in the leader board.
 
@@ -68,9 +68,9 @@ Your score must be on the top 5 if you deserve to be in the leader board.
 
 ### Mission
  
-- Survive enemies lasers
-- Survive enemy collitions
-- Shoot all enemies
+- Survive enemies lasers.
+- Survive enemy collitions.
+- Shoot all enemies.
 - Get the highest score possible to enter the hall of fame.
  your score to an online leaderboard
 
