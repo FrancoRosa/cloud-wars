@@ -41,7 +41,7 @@ export const getScore = async () => {
     });
     const data = await response.json();
     scores.topscores = data.result.sort(rank).splice(0, 5);
-    console.log(scores.topscores);
+    return scores.topscores;
   } catch (error) {
     return error;
   }

@@ -22,6 +22,7 @@
   "homepage": "https://github.com/FrancoRosa/alien-wars#readme",
   "devDependencies": {
     "@azerion/phaser-input": "^2.0.5",
+    "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "babel-loader": "^8.1.0",
     "babel-preset-env": "^1.7.0",
@@ -33,6 +34,7 @@
     "eslint-plugin-import": "^2.20.2",
     "file-loader": "^6.0.0",
     "jest": "^26.4.2",
+    "jest-fetch-mock": "^3.0.3",
     "raw-loader": "^4.0.1",
     "style-loader": "^1.2.1",
     "stylelint": "^13.3.3",
@@ -45,5 +47,11 @@
   },
   "dependencies": {
     "phaser": "^3.24.1"
+  },
+  "jest": {
+    "automock": false,
+    "setupFiles": [
+      "./setupJest.js"
+    ]
   }
 }
