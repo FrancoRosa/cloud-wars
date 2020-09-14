@@ -19,4 +19,4 @@ export const show = () => {
 
 export const loader = () => {
   document.querySelector('.loader').classList.remove('hidden');
-}
+};

@@ -1,7 +1,7 @@
 # cloud-wars
->Shooter ame build with the power of Phaser3 adn JS
+>Shooter ame build with the power of Phaser3 and JS
 
-Your score must be on the top 5 if you deserve to be in the leader board
+Your score must be on the top 5 if you deserve to be in the leader board.
 
 ## Play
 
@@ -13,6 +13,19 @@ Your score must be on the top 5 if you deserve to be in the leader board
   </a>
 </p> 
 
+## Table of contents
+[How to Play](#howto)
+
+[Deploy](#deploy)
+
+[GameDesignDocument](#document)
+
+[Author](#author)
+
+[Acknowledgements](#acknowledgements)
+
+<a name="howto"/>
+
 ## How to Play
 
 <p align="center">
@@ -20,6 +33,31 @@ Your score must be on the top 5 if you deserve to be in the leader board
 </p> 
 
 - W, A, S, D: Up, down, left, right, respectibly. 
+
+
+<a name="deploy"/>
+
+## Deploy
+
+1. To deploy this project locally, download or clone this repo.
+
+2. Install the dependencies to build the project
+```
+    npm install
+```
+3. Build the project with *npm run build* use the following command to start the development server :
+```
+    npm run start
+```
+4. If you make are making many changes use webpack on development mode:
+```
+    $ npm run dev
+```
+5. To run the test:
+```
+    $ npm run testdev
+```
+<a name="document"/>
 
 ## Game Design Document
 
@@ -119,6 +157,9 @@ Your score must be on the top 5 if you deserve to be in the leader board
 	-	Get and save scores from API
 	-	Run tests
 
+
+<a name="author"/>
+
 ## Author
 
 👤 Franco Rosa
@@ -134,6 +175,8 @@ Feel free to check the [issues page](issues/).
 ## Show your support
 
 Give an ⭐️ if you like this project!
+
+<a name="acknowledgements"/>
 
 ## Acknowledgments
 - [Space-Shooter Tutorial](https://learn.yorkcs.com/category/tutorials/gamedev/phaser-3/build-a-space-shooter-with-phaser-3/) The game is build from this base.
