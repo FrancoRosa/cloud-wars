@@ -19,7 +19,6 @@ body {
   left: 154px;
   width: 180px;
   height: 43px;
-  border: 10%;
 }
 
 .input > input {
@@ -30,7 +29,6 @@ body {
   font-size: 28px;
   height: 40px;
   width: 183px;
-  
 }
 
 .hidden {

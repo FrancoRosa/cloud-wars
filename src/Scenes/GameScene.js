@@ -114,7 +114,6 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.playerLasers, this.enemies, (player, enemy) => {
       if (!player.getData('isDead')
           && !enemy.getData('isDead')) {
-        // player.explode(false);
         enemy.explode(true);
         this.addScore(10);
       }
@@ -122,6 +121,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.bonusLifes, (player, bonus) => {
       this.addLifes();
+      this.addScore(100);
       if (!player.getData('isDead')) {
         bonus.destroy();
       }
@@ -129,11 +129,9 @@ export default class GameScene extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.enemyLasers, (player, enemy) => {
       this.removeLifes();
-      if (this.getLifes() < 0) {
+      if (!player.getData('isDead') && !enemy.getData('isDead')) {
         enemy.explode(true);
-        if (!player.getData('isDead') && !enemy.getData('isDead')) {
-          player.explode(true);
-        }
+        if (this.getLifes() < 0) player.explode(true);
       }
     });
 
@@ -192,6 +190,7 @@ export default class GameScene extends Phaser.Scene {
         this.player.setData('isShooting', false);
       }
     } else {
+      this.input.keyboard.enabled = false;
       scores.score = this.getScore();
       this.scene.start('GameOver');
     }
@@ -242,5 +241,6 @@ export default class GameScene extends Phaser.Scene {
     this.levelText.setText(`level: ${this.player.getData('level')}`);
     this.sfx.level.play();
     this.player.power();
+    this.addScore(100);
   }
 }
