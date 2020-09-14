@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import config from '../Config/config';
+import Button from '../Objects/Button';
 import { hide } from '../js/dom';
 
 export default class CreditsScene extends Phaser.Scene {
@@ -9,6 +10,8 @@ export default class CreditsScene extends Phaser.Scene {
 
   create() {
     hide();
+    this.menuButton = new Button(this, config.midx, config.midy + 170, 'blueButton1', 'blueButton2', 'Menu', 'Title');
+
     this.creditsText = this.add.text(0, 0, 'Credits', { fontSize: '32px', fill: '#fff' });
     this.madeByText = this.add.text(0, 0, 'Created by: FrancoRosa', { fontSize: '26px', fill: '#fff' });
     this.inspiredByText = this.add.text(0, 0, 'Inspired by: Jared York', { fontSize: '26px', fill: '#fff' });

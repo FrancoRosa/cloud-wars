@@ -3,6 +3,6 @@ export default {
     user: null,
     score: 0,
   },
-  topscores: {
-  },
+  topscores: [
+  ],
 };

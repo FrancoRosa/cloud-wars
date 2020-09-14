@@ -1,5 +1,9 @@
 import Phaser from 'phaser';
 import scores from '../js/topscores';
+import config from '../Config/config';
+import Button from '../Objects/Button';
+import { getScore, saveScore } from '../js/savescores';
+import { hide, loader } from '../js/dom';
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
@@ -11,7 +15,24 @@ export default class BootScene extends Phaser.Scene {
   }
 
   create() {
-    // this.scene.start('Preloader');
-    this.finalScoreText = this.add.text(16, 32, `score: ${scores.score}`, { fontSize: '16px', fill: '#FFF' });
+    this.sfx = {
+      life: this.sound.add('sndLife'),
+    };
+
+    this.menuButton = new Button(this, config.midx, config.midy + 170, 'blueButton1', 'blueButton2', 'Menu', 'Title');
+    this.userNameText = this.add.text(210, 310, `${scores.user.user}`, { fontSize: '16px', fill: '#FFF' });
+    this.finalScoreText = this.add.text(210, 330, `score: ${scores.user.score}`, { fontSize: '16px', fill: '#FFF' });
+    loader();
+    getScore()
+      .then(() => {
+        hide();
+        if (scores.user.score > scores.topscores[4].score) {
+          this.add.text(100, 390, 'You entered the hall of fame!', { fontSize: '16px', fill: '#FFF' });
+          this.sfx.life.play();
+          saveScore();
+        } else {
+          this.add.text(90, 390, 'Low scores don\'t deserve to be saved.', { fontSize: '16px', fill: '#FFF' });
+        }
+      });
   }
 }

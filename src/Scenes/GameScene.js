@@ -83,7 +83,7 @@ export default class GameScene extends Phaser.Scene {
     this.scoreText = this.add.text(16, 62, 'score: 0', { fontSize: '16px', fill: '#FFF' });
 
     this.time.addEvent({
-      delay: 1000 - (100 * this.getLevel() - 1),
+      delay: 1000 - (100 * (this.getLevel() % 10)),
       callback: () => {
         const enemy = new EnemyShipSmall(
           this,
@@ -205,6 +205,7 @@ export default class GameScene extends Phaser.Scene {
     if (!this.player.getData('isDead')) {
       this.player.setData('score', this.getScore() + value);
       this.scoreText.setText(`score: ${this.player.getData('score')}`);
+      scores.user.score = this.player.getData('score');
     }
   }
 

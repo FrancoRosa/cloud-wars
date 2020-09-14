@@ -9,7 +9,7 @@ class EnemyShipSmall extends Entity {
     this.body.velocity.y = Phaser.Math.Between(50, 100);
     this.body.velocity.x = Phaser.Math.Between(-150, 150);
     this.shootTimer = this.scene.time.addEvent({
-      delay: 1000 - 100 * (this.scene.getLevel() - 1),
+      delay: 1000 - 100 * (this.scene.getLevel() % 10),
       callback: () => {
         const laser = new EnemyLaser(
           this.scene,

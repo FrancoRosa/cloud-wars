@@ -11,7 +11,7 @@ const rank = (a, b) => {
   return 0;
 };
 
-const saveScore = async () => {
+export const saveScore = async () => {
   try {
     scores.user.user = scores.user.user == null ? 'Unknown' : scores.user.user;
     scores.user.score = scores.user.score === 0 ? 1 : scores.user.score;
@@ -25,13 +25,13 @@ const saveScore = async () => {
       body: JSON.stringify(scores.user),
     });
     const data = await response.json();
-    console.log(data);
+    return data;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
-const getScore = async () => {
+export const getScore = async () => {
   try {
     const response = await fetch(url + newGameEnd + id + scoresEnd, {
       mode: 'cors',
@@ -40,8 +40,9 @@ const getScore = async () => {
       },
     });
     const data = await response.json();
-    scores.topscores = data.results[0].sort(rank).splice(0, 5);
+    scores.topscores = data.result.sort(rank).splice(0, 5);
+    console.log(scores.topscores);
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };

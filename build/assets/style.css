@@ -13,7 +13,6 @@ body {
 }
 
 .input {
-  display: flex;
   position: relative;
   text-align: center;
   top: 207px;
@@ -36,4 +35,29 @@ body {
 
 .hidden {
   display: none;
+}
+
+.loader {
+  position: relative;
+  z-index: 10;
+  top: 250px;
+  left: 175px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid  #1ea7e1;
+  border-bottom: 16px solid  #1ea7e1;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
