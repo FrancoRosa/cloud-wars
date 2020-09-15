@@ -32,7 +32,8 @@ Your score must be on the top 5 if you deserve to be in the leader board.
   <img width="260" height="300" src="./src/assets/controls.png">
 </p> 
 
-- W, A, S, D: Up, down, left, right, respectibly. 
+- To move your ship use the W, A, S, D keys: Up, down, left, right, respectibly.
+- To shot your weapon use the space bar. 
 
 
 <a name="deploy"/>
