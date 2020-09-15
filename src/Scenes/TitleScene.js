@@ -14,10 +14,11 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create() {
-    this.gameButton = new Button(this, config.midx, config.midy, 'blueButton1', 'blueButton2', 'Play', 'Game');
-    this.optionsButton = new Button(this, config.midx, config.midy + 70, 'blueButton1', 'blueButton2', 'Options', 'Options');
-    this.creditsButton = new Button(this, config.midx, config.midy + 140, 'blueButton1', 'blueButton2', 'Credits', 'Credits');
-    this.ScoresButton = new Button(this, config.midx, config.midy + 210, 'blueButton1', 'blueButton2', 'Scores', 'Scores');
+    this.sndEfect()
+    this.gameButton = new Button(this, config.midx, config.midy, 'Play', 'Game');
+    this.optionsButton = new Button(this, config.midx, config.midy + 70, 'Options', 'Options');
+    this.creditsButton = new Button(this, config.midx, config.midy + 140, 'Credits', 'Credits');
+    this.ScoresButton = new Button(this, config.midx, config.midy + 210, 'Scores', 'Scores');
 
     this.model = this.sys.game.globals.model;
     if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
@@ -28,18 +29,10 @@ export default class TitleScene extends Phaser.Scene {
     }
   }
 
-  centerButton(gameObject, offset = 0) {
-    Phaser.Display.Align.In.Center(
-      gameObject,
-      this.add.zone(config.midx, config.midy - offset * 100, config.width, config.height),
-    );
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  centerButtonText(gameText, gameButton) {
-    Phaser.Display.Align.In.Center(
-      gameText,
-      gameButton,
-    );
+  sndEfect() {
+    this.sfx = {
+      life: this.sound.add('sndLife'),
+    };
+    this.sfx.life.play();
   }
 }

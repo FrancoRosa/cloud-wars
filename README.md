@@ -80,6 +80,11 @@ Your score must be on the top 5 if you deserve to be in the leader board.
 - Any desktop web browser
 - Keyboard required
 
+### Controls
+
+- To move your ship use the W, A, S, D keys: Up, down, left, right, respectibly.
+- To shot your weapon use the space bar. 
+
 ### Project Scope 
 
 - Use of phaser and API to store scores

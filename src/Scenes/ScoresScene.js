@@ -17,7 +17,7 @@ export default class ScoresScene extends Phaser.Scene {
   }
 
   create() {
-    this.menuButton = new Button(this, config.midx, config.midy + 170, 'blueButton1', 'blueButton2', 'Menu', 'Title');
+    this.menuButton = new Button(this, config.midx, config.midy + 170, 'Menu', 'Title');
     getScore()
       .then(() => {
         hide();

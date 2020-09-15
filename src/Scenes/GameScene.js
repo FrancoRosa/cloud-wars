@@ -20,6 +20,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
+    this.sndEfect();
+
     this.anims.create({
       key: 'sprEnemy0',
       frames: this.anims.generateFrameNumbers('sprEnemy0'),
@@ -241,5 +243,12 @@ export default class GameScene extends Phaser.Scene {
     this.sfx.level.play();
     this.player.power();
     this.addScore(100);
+  }
+
+  sndEfect() {
+    this.sfx = {
+      life: this.sound.add('sndLife'),
+    };
+    this.sfx.life.play();
   }
 }
