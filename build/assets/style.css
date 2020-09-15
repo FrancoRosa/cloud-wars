@@ -26,9 +26,10 @@ body {
   color: white;
   border-radius: 7px;
   text-align: center;
-  font-size: 28px;
+  font-size: 32px;
   height: 40px;
   width: 183px;
+  font-family: monospace;
 }
 
 .hidden {

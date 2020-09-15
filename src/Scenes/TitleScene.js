@@ -15,10 +15,10 @@ export default class TitleScene extends Phaser.Scene {
 
   create() {
     this.sndEfect()
-    this.gameButton = new Button(this, config.midx, config.midy, 'Play', 'Game');
-    this.optionsButton = new Button(this, config.midx, config.midy + 70, 'Options', 'Options');
-    this.creditsButton = new Button(this, config.midx, config.midy + 140, 'Credits', 'Credits');
-    this.ScoresButton = new Button(this, config.midx, config.midy + 210, 'Scores', 'Scores');
+    this.gameButton = new Button(this, config.midx, config.midy - 10, 'Play', 'Game');
+    this.optionsButton = new Button(this, config.midx, config.midy + 110, 'Options', 'Options');
+    this.creditsButton = new Button(this, config.midx, config.midy + 180, 'Credits', 'Credits');
+    this.ScoresButton = new Button(this, config.midx, config.midy + 250, 'Scores', 'Scores');
 
     this.model = this.sys.game.globals.model;
     if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
