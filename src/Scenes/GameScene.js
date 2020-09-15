@@ -190,7 +190,6 @@ export default class GameScene extends Phaser.Scene {
         this.player.setData('isShooting', false);
       }
     } else {
-      this.input.keyboard.enabled = false;
       scores.score = this.getScore();
       this.scene.start('GameOver');
     }
