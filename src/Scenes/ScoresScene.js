@@ -3,7 +3,7 @@ import config from '../Config/config';
 import Button from '../Objects/Button';
 import scores from '../js/topscores';
 import { hide, loader } from '../js/dom';
-import { getScore } from '../js/savescores';
+import scoresAPI from '../js/scoresAPI';
 
 export default class ScoresScene extends Phaser.Scene {
   constructor() {
@@ -18,12 +18,14 @@ export default class ScoresScene extends Phaser.Scene {
 
   create() {
     this.menuButton = new Button(this, config.midx, config.midy + 170, 'Menu', 'Title');
-    getScore()
+    this.add.text(160, 200, 'Top 5 High Scores', { fontSize: '16px', fill: '#FFF' });
+
+    scoresAPI.gettop()
       .then(() => {
         hide();
         let tab = 0;
         scores.topscores.forEach(element => {
-          this.add.text(200, 260 + tab, `${element.user}: ${element.score}`, { fontSize: '16px', fill: '#FFF' });
+          this.add.text(160, 260 + tab, `${tab / 24 + 1}.- ${element.user}: ${element.score}`, { fontSize: '16px', fill: '#FFF' });
           tab += 24;
         });
       })
