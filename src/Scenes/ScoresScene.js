@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import config from '../Config/config';
 import Button from '../Objects/Button';
 import scores from '../js/topscores';
-import { hide, loader } from '../js/dom';
+import dom from '../js/dom';
 import scoresAPI from '../js/scoresAPI';
 
 export default class ScoresScene extends Phaser.Scene {
@@ -11,8 +11,8 @@ export default class ScoresScene extends Phaser.Scene {
   }
 
   preload() {
-    hide();
-    loader();
+    dom.hide();
+    dom.loader();
     this.add.image(250, 100, 'logo');
   }
 
@@ -22,7 +22,7 @@ export default class ScoresScene extends Phaser.Scene {
 
     scoresAPI.gettop()
       .then(() => {
-        hide();
+        dom.hide();
         let tab = 0;
         scores.topscores.forEach(element => {
           this.add.text(160, 260 + tab, `${tab / 24 + 1}.- ${element.user}: ${element.score}`, { fontSize: '16px', fill: '#FFF' });

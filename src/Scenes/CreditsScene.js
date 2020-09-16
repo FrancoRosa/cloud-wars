@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import config from '../Config/config';
 import Button from '../Objects/Button';
-import { hide } from '../js/dom';
+import dom from '../js/dom';
 
 export default class CreditsScene extends Phaser.Scene {
   constructor() {
@@ -9,7 +9,7 @@ export default class CreditsScene extends Phaser.Scene {
   }
 
   create() {
-    hide();
+    dom.hide();
     this.sndEfect();
     const credits = 'Credits            Author: FrancoRosa         InspiredBy: JaredJork        github.com/FrancoRosa';
     this.menuButton = new Button(this, config.midx, config.midy + 170, 'Menu', 'Title');

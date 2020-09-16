@@ -3,7 +3,7 @@ import Player from '../Entities/Player';
 import EnemyShipSmall from '../Entities/EnemyShipSmall';
 import BonusLife from '../Entities/BonusLife';
 import scores from '../js/topscores';
-import { hide } from '../js/dom';
+import dom from '../js/dom';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -11,7 +11,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    hide();
+    dom.hide();
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);

@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import config from '../Config/config';
 import Button from '../Objects/Button';
-import { hide } from '../js/dom';
+import dom from '../js/dom';
 
 export default class OptionsScene extends Phaser.Scene {
   constructor() {
@@ -9,7 +9,7 @@ export default class OptionsScene extends Phaser.Scene {
   }
 
   preload() {
-    hide();
+    dom.hide();
     this.add.image(250, 100, 'logo');
   }
 

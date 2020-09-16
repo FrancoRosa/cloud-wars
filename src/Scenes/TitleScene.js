@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import config from '../Config/config';
 import Button from '../Objects/Button';
-import { show } from '../js/dom';
+import dom from '../js/dom';
 
 export default class TitleScene extends Phaser.Scene {
   constructor() {
@@ -10,11 +10,11 @@ export default class TitleScene extends Phaser.Scene {
 
   preload() {
     this.add.image(250, 100, 'logo');
-    show();
+    dom.show();
   }
 
   create() {
-    this.sndEfect()
+    this.sndEfect();
     this.gameButton = new Button(this, config.midx, config.midy - 10, 'Play', 'Game');
     this.optionsButton = new Button(this, config.midx, config.midy + 110, 'Options', 'Options');
     this.creditsButton = new Button(this, config.midx, config.midy + 180, 'Credits', 'Credits');
