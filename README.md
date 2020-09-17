@@ -16,7 +16,7 @@ Your score must be on the top 5 if you deserve to be in the leader board.
 ## Table of contents
 [How to Play](#howto)
 
-[Deploy](#deploy)
+[Run, develop](#run)
 
 [GameDesignDocument](#document)
 
@@ -36,9 +36,9 @@ Your score must be on the top 5 if you deserve to be in the leader board.
 - To shot your weapon use the space bar. 
 
 
-<a name="deploy"/>
+<a name="run"/>
 
-## Deploy
+## Run, develop
 
 1. To deploy this project locally, download or clone this repo.
 
