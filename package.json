@@ -1,0 +1,57 @@
+{
+  "name": "alien-wars",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "testdev": "jest --watch",
+    "dev": "webpack --watch --mode development",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FrancoRosa/alien-wars.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FrancoRosa/alien-wars/issues"
+  },
+  "homepage": "https://github.com/FrancoRosa/alien-wars#readme",
+  "devDependencies": {
+    "@azerion/phaser-input": "^2.0.5",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "babel-preset-env": "^1.7.0",
+    "copy-webpack-plugin": "^6.1.0",
+    "css-loader": "^4.2.1",
+    "dotenv-webpack": "^2.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "file-loader": "^6.0.0",
+    "jest": "^26.4.2",
+    "jest-fetch-mock": "^3.0.3",
+    "raw-loader": "^4.0.1",
+    "style-loader": "^1.2.1",
+    "stylelint": "^13.3.3",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-csstree-validator": "^1.8.0",
+    "stylelint-scss": "^3.17.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "phaser": "^3.24.1"
+  },
+  "jest": {
+    "automock": false,
+    "setupFiles": [
+      "./setupJest.js"
+    ]
+  }
+}
